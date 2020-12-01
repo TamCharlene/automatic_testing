@@ -4,17 +4,19 @@ import json
 import base64
 import urllib3
 from requests.cookies import RequestsCookieJar
+from common.doParseExcel import DoParseExcel
 
 from common.doConfig import GetInfo
 from common.doExcel import DoExcel
 from common.doLog import GetLog
 
 urllib3.disable_warnings()
-logger = GetLog().logger()
+#logger = GetLog().logger()
 
 class HttpRequest:
 
     def httpRequest(self, url, data, method, headers):
+
         """
         接口请求
         :param url:接口url
@@ -35,8 +37,8 @@ class HttpRequest:
             null = "null"
             false = "false"
             return request.status_code, request.json()
-        else:
-            logger.info("未知方法")
+        #else:
+            #logger.info("未知方法")
 
     def post_upload_file(self, url, headers, file_name, file_absolute_path, content_type):
         """post方法上传文件:
@@ -109,4 +111,19 @@ class DoHttpRequest:
         for item in api_info:
             headers_list.append(api_info.headers)
         return headers_list
+
+    def doGetRequest(self):
+        apiExcel = os.path.abspath(os.path.dirname(os.path.dirname(__file__))) + "/data/client_app_case.xlsx"
+        api_info = apiExcel.sheet_names
+        print(api_info)
+
+
+if __name__ == '__main__':
+    lines = DoParseExcel().doGetLines()
+    for line in lines:
+        url = line['interfacePath']
+        method = line['method']
+        HttpRequest.httpRequest()
+
+
 

@@ -57,4 +57,5 @@ class DoExcel:
 if __name__ == '__main__':
     apiExcel = os.path.abspath(os.path.dirname(os.path.dirname(__file__))) + "/data/client_app_case.xlsx"
     datas = DoExcel.get_sheets(apiExcel)
+    #datas['首页'][0]['interfacePath']
     print(datas)
