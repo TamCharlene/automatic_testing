@@ -71,8 +71,47 @@ class DoLoginOut:
 
         return res_login.json()
 
+class TokenSet:
+
+    def getToken(self):
+        """
+        获取全局变量 access_token
+        :return:
+        """
+        global access_token
+        re = DoLoginOut().login()
+        access_token = re['data'].get('access_token')
+        return access_token
+
+    def getCustomerId(self):
+        """
+        获取全局变量 customerId
+        :return:
+        """
+        global customerId
+        re = DoLoginOut().login()
+        customerId = re['data'].get('customerId')
+        return customerId
+
+    def getUnionId(self):
+        """
+        获取全局变量 union_id
+        :return:
+        """
+        global union_id
+        re = DoLoginOut().login()
+        union_id = re['data'].get('union_id')
+        return union_id
+
+
 if __name__ == '__main__':
     re = DoLoginOut().login()
     print(re)
+    re_access_token = TokenSet().getToken()
+    print(re_access_token)
+    re_customerId = TokenSet().getCustomerId()
+    print(re_customerId)
+    re_union_id = TokenSet().getUnionId()
+    print(re_union_id)
 
 
