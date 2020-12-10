@@ -78,7 +78,6 @@ class TokenSet:
         获取全局变量 access_token
         :return:
         """
-        global access_token
         re = DoLoginOut().login()
         access_token = re['data'].get('access_token')
         return access_token
@@ -88,7 +87,6 @@ class TokenSet:
         获取全局变量 customerId
         :return:
         """
-        global customerId
         re = DoLoginOut().login()
         customerId = re['data'].get('customerId')
         return customerId
@@ -98,20 +96,23 @@ class TokenSet:
         获取全局变量 union_id
         :return:
         """
-        global union_id
         re = DoLoginOut().login()
         union_id = re['data'].get('union_id')
         return union_id
 
+class GetToken:
+    """
+    设置三个全局变量，供所有class使用
+    """
+    global access_token, customerId, union_id
+    access_token = TokenSet().getToken()
+    customerId = TokenSet().getCustomerId()
+    union_id = TokenSet().getUnionId()
+    print(access_token)
+    print(customerId)
+    print(union_id)
 
 if __name__ == '__main__':
     re = DoLoginOut().login()
     print(re)
-    re_access_token = TokenSet().getToken()
-    print(re_access_token)
-    re_customerId = TokenSet().getCustomerId()
-    print(re_customerId)
-    re_union_id = TokenSet().getUnionId()
-    print(re_union_id)
-
 
